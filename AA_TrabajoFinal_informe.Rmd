@@ -115,6 +115,7 @@ kbl(meta,booktabs=TRUE) %>%
 ¿Cuál es la variable de interés? ¿Y las variables que ayudan a predecir sus resultados? Explique brevemente
 
 ```{r}
+#La variable de interés es diabetes. Con el resto de los datos del dataset se puede predecir si un paciente puede ser diagnosticado con diabetes mellitus.
 
 ```
 
@@ -124,9 +125,9 @@ kbl(meta,booktabs=TRUE) %>%
 
 Se eligieron los siguientes
 
--   método 1: (breve explicación de su elección)
+-   método 1: Se elige el método Accuracy que nos indica el porcentaje de los casos bien clasificados.
 
--   método 2: (breve explicación de su elección)
+-   método 2: Se elige el método Precisión que nos indica el porcentaje de casos positivos bien clasificados dentro de los casos positivos predichos.
 
 ## 3.Resultados
 
@@ -135,7 +136,7 @@ Se eligieron los siguientes
 Elija proporción de datos de entrenamiento y de prueba (o testing) para separar los datos.
 
 ```{r}
-
+# Se elige el 75% de los datos para entrenamiento y el 25% para pruebas.
 ```
 
 <!-- Se recomienda que la proporción de datos de entrenamiento supere al menos el 50% del total de datos -->
