@@ -1,6 +1,7 @@
 ---
+p---
 title: 'Aprendizaje Automático: Trabajo Final'
-author: "(autores acá)"
+author: "Gonzalo Tabares, Washington Rosa y Daniel Paggiola"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 header-includes:
   \usepackage{fancyhdr} 
@@ -22,7 +23,6 @@ vignette: |
 knitr::opts_chunk$set(echo = T,message = F,warning = F,
                       eval = T,fig.align="center",out.width = "100%")
 ```
-
 
 ```{r librerias,message=FALSE,echo=F}
 
@@ -53,7 +53,6 @@ set.seed(2022) #anio del curso
 
 ```
 
-
 ```{r, echo = F}
 # CARGO DATOS
 data("PimaIndiansDiabetes2")
@@ -64,14 +63,13 @@ pima <- PimaIndiansDiabetes2
 
 ## ¿De qué se trata?
 
-Consta de un problema de clasificación _binaria_, en el cual solicitamos que se trabaje con dos métodos de clasificación de los vistos en el curso y se describa el procedimiento utilizado, modelos escogidos, resultados y conclusiones.
-
+Consta de un problema de clasificación *binaria*, en el cual solicitamos que se trabaje con dos métodos de clasificación de los vistos en el curso y se describa el procedimiento utilizado, modelos escogidos, resultados y conclusiones.
 
 ## Datos
 
-Se proporciona un conjunto de datos del Instituto Nacional de la Diabetes y de enfermedades Digestivas y de Riñón (NIDDK) de Estados Unidos. Fue construido con el **objetivo** de _predecir si una paciente puede ser diagnosticada con diabetes mellitus_, en base un grupo de variables explicativas o predictoras. Las mediciones se realizaron en 768 mujeres mayores de 20 años y con descendencia del pueblo originario Pima, habitantes del norte de México y sur de Estados Unidos.
+Se proporciona un conjunto de datos del Instituto Nacional de la Diabetes y de enfermedades Digestivas y de Riñón (NIDDK) de Estados Unidos. Fue construido con el **objetivo** de *predecir si una paciente puede ser diagnosticada con diabetes mellitus*, en base un grupo de variables explicativas o predictoras. Las mediciones se realizaron en 768 mujeres mayores de 20 años y con descendencia del pueblo originario Pima, habitantes del norte de México y sur de Estados Unidos.
 
-Consta de 9 variables: 
+Consta de 9 variables:
 
 ```{r variables, echo=FALSE}
 # Armamos data.frame con informacion
@@ -98,15 +96,11 @@ kbl(meta,booktabs=TRUE) %>%
 
 ```
 
-_Nota_: (*) la variable original de los datos en el paquete `{mlbench}` es un _factor_. Pueden trabajar con cualquiera de las dos versiones --la original o la transformada. La última quedará guardada si corren la segunda línea del chunk llamado `variables`. Simplemente hay que tener cuidado con los modelos que se vayan a usar y verificar que el tipo de variable sea el correcto para cada modelo.
-
+*Nota*: (\*) la variable original de los datos en el paquete `{mlbench}` es un *factor*. Pueden trabajar con cualquiera de las dos versiones --la original o la transformada. La última quedará guardada si corren la segunda línea del chunk llamado `variables`. Simplemente hay que tener cuidado con los modelos que se vayan a usar y verificar que el tipo de variable sea el correcto para cada modelo.
 
 ```{r, echo=FALSE}
 #summary(PimaIndiansDiabetes2)
 ```
-
-
-
 
 # Se pide
 
@@ -116,34 +110,29 @@ _Nota_: (*) la variable original de los datos en el paquete `{mlbench}` es un _f
 
 ¿Encuentra alguna medida fuera de lo normal? ¿Hay datos faltantes en este conjunto de datos? En cualquiera de los dos casos, identifique dónde hay problemas y explique brevemente cambios que pudiera realizar a los datos.
 
-
-
 ### Variables a trabajar
 
 ¿Cuál es la variable de interés? ¿Y las variables que ayudan a predecir sus resultados? Explique brevemente
 
-
 ```{r}
 
 ```
-<!-- Agregar tantos chunks R como sean necesarios: boton "+C" verde -->
 
+<!-- Agregar tantos chunks R como sean necesarios: boton "+C" verde -->
 
 ## 2.Métodos de clasificación escogidos
 
 Se eligieron los siguientes
 
-- método 1: (breve explicación de su elección)
+-   método 1: (breve explicación de su elección)
 
-- método 2: (breve explicación de su elección)
-
-
+-   método 2: (breve explicación de su elección)
 
 ## 3.Resultados
 
 ### Separación de datos para validación
 
-Elija proporción de datos de entrenamiento y de prueba (o testing) para separar los datos. 
+Elija proporción de datos de entrenamiento y de prueba (o testing) para separar los datos.
 
 ```{r}
 
@@ -155,16 +144,13 @@ Elija proporción de datos de entrenamiento y de prueba (o testing) para separar
 
 ### Comparación entre modelos
 
-
 Comentar brevemente las salidas obtenidas
 
 ```{r}
 
 ```
 
-_Comentarios_: (rellenar)
-
-
+*Comentarios*: (rellenar)
 
 Utilizar métricas apropiadas para comparar performance de modelos
 
@@ -172,26 +158,16 @@ Utilizar métricas apropiadas para comparar performance de modelos
 
 ```
 
-_Comentarios_: (rellenar)
-
-
+*Comentarios*: (rellenar)
 
 ## 4.Conclusiones
 
+-   Conclusion 1:
 
-- Conclusion 1:
+-   Conclusion 2:
 
-- Conclusion 2: 
-
-- Conclusion 3: 
-
+-   Conclusion 3:
 
 ## Comentarios finales
 
 (todo lo que consideren necesario explicar: descubrimientos más importantes, limitaciones, sugerencias, etc.)
-
-
-
-
-
-
