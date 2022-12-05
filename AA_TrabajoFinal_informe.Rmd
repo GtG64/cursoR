@@ -1,0 +1,197 @@
+---
+title: 'Aprendizaje Automático: Trabajo Final'
+author: "(autores acá)"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+header-includes:
+  \usepackage{fancyhdr} 
+  \usepackage{graphicx} 
+  \usepackage{eurosym} 
+  \usepackage{booktabs,xcolor}
+  \usepackage{url}
+  \usepackage{float}
+  \AtBeginDocument{\selectlanguage{spanish}}
+output:
+  prettydoc::html_pretty:
+    theme: leonids
+    highlight: github    
+vignette: |
+  %\VignetteIndexEntry{Vignette Title} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T,message = F,warning = F,
+                      eval = T,fig.align="center",out.width = "100%")
+```
+
+
+```{r librerias,message=FALSE,echo=F}
+
+### LIBRERIAS
+
+# Genericas
+library(tidyverse)
+library(RColorBrewer)
+library(rattle)
+library(kableExtra) #mejora tablas kable()
+
+# Especificas de cada modelo
+#library(caret)
+#library(rpart)
+#library(partykit)
+#library(randomForest)
+#library(e1071)
+#library(mlbench)
+# Algo mas sofisticado
+if(system.file(package="mlbench")=="") {
+  install.packages("mlbench",dependencies=TRUE)
+  } else {
+  require("mlbench") #no me queda claro si funca
+}
+
+#Plantamos (Karol) Semilla
+set.seed(2022) #anio del curso
+
+```
+
+
+```{r, echo = F}
+# CARGO DATOS
+data("PimaIndiansDiabetes2")
+pima <- PimaIndiansDiabetes2
+```
+
+# Presentación del problema
+
+## ¿De qué se trata?
+
+Consta de un problema de clasificación _binaria_, en el cual solicitamos que se trabaje con dos métodos de clasificación de los vistos en el curso y se describa el procedimiento utilizado, modelos escogidos, resultados y conclusiones.
+
+
+## Datos
+
+Se proporciona un conjunto de datos del Instituto Nacional de la Diabetes y de enfermedades Digestivas y de Riñón (NIDDK) de Estados Unidos. Fue construido con el **objetivo** de _predecir si una paciente puede ser diagnosticada con diabetes mellitus_, en base un grupo de variables explicativas o predictoras. Las mediciones se realizaron en 768 mujeres mayores de 20 años y con descendencia del pueblo originario Pima, habitantes del norte de México y sur de Estados Unidos.
+
+Consta de 9 variables: 
+
+```{r variables, echo=FALSE}
+# Armamos data.frame con informacion
+nmb_var <- colnames(pima)
+pima$diabetes <- ifelse(pima$diabetes=="pos",1,0)
+tipo_var <- lapply(pima,class) %>% unlist %>% unname
+rng1 <- lapply(pima,min,na.rm=TRUE) %>% unlist %>% unname
+rng2 <- lapply(pima,max,na.rm=TRUE) %>% unlist %>% unname
+descr <- c("Cantidad de veces que estuvo embarazada",
+           "Resultado de tolerancia a la glucosa (glucosa plasmática en ayunas)",
+           "Presión diastólica (mm Hg)",
+           "Grosor de pliegues en triceps (mm)",
+           "Insulina en suero a las 2 horas (mu U/ml)",
+           "Indice de Masa Corporal (IMC): peso_kg/(altura_mts)^2",
+           "Probabilidad de tener diabetes en base a historia familiar",
+           "Edad en años",
+           "La paciente tiene (=1) o no tiene (=0) diabetes*")
+meta <- cbind("Nombre"=nmb_var,"Tipo"=tipo_var,"Mínimo"=rng1,"Máximo"=rng2,"Descripción"=descr)
+
+#Tabla con metadaos
+kbl(meta,booktabs=TRUE) %>%
+  kable_styling(latex_options="striped") #%>%
+  #as_image() #queda mejor en tabla HTML
+
+```
+
+_Nota_: (*) la variable original de los datos en el paquete `{mlbench}` es un _factor_. Pueden trabajar con cualquiera de las dos versiones --la original o la transformada. La última quedará guardada si corren la segunda línea del chunk llamado `variables`. Simplemente hay que tener cuidado con los modelos que se vayan a usar y verificar que el tipo de variable sea el correcto para cada modelo.
+
+
+```{r, echo=FALSE}
+#summary(PimaIndiansDiabetes2)
+```
+
+
+
+
+# Se pide
+
+## 1.Trabajo previo
+
+### Depurar
+
+¿Encuentra alguna medida fuera de lo normal? ¿Hay datos faltantes en este conjunto de datos? En cualquiera de los dos casos, identifique dónde hay problemas y explique brevemente cambios que pudiera realizar a los datos.
+
+
+
+### Variables a trabajar
+
+¿Cuál es la variable de interés? ¿Y las variables que ayudan a predecir sus resultados? Explique brevemente
+
+
+```{r}
+
+```
+<!-- Agregar tantos chunks R como sean necesarios: boton "+C" verde -->
+
+
+## 2.Métodos de clasificación escogidos
+
+Se eligieron los siguientes
+
+- método 1: (breve explicación de su elección)
+
+- método 2: (breve explicación de su elección)
+
+
+
+## 3.Resultados
+
+### Separación de datos para validación
+
+Elija proporción de datos de entrenamiento y de prueba (o testing) para separar los datos. 
+
+```{r}
+
+```
+
+<!-- Se recomienda que la proporción de datos de entrenamiento supere al menos el 50% del total de datos -->
+
+<!-- Agregar tantos chunks R como sean necesarios: boton "+C" verde -->
+
+### Comparación entre modelos
+
+
+Comentar brevemente las salidas obtenidas
+
+```{r}
+
+```
+
+_Comentarios_: (rellenar)
+
+
+
+Utilizar métricas apropiadas para comparar performance de modelos
+
+```{r}
+
+```
+
+_Comentarios_: (rellenar)
+
+
+
+## 4.Conclusiones
+
+
+- Conclusion 1:
+
+- Conclusion 2: 
+
+- Conclusion 3: 
+
+
+## Comentarios finales
+
+(todo lo que consideren necesario explicar: descubrimientos más importantes, limitaciones, sugerencias, etc.)
+
+
+
+
+
+
