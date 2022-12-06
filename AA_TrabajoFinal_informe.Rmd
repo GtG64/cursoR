@@ -160,14 +160,14 @@ A continuación se depuran los datos reemplazando los valores nulos por la media
 
 ```{r}
 pima<-pima %>%
-mutate(pregnant = ifelse(pregnant == 0, 3.0, pregnant), 
-       glucose = ifelse(glucose == 0, 117.0, glucose),
-       pressure= ifelse(pressure == 0, 72.00, pressure),
-       triceps= ifelse(triceps == 0, 29.00, triceps),
-       insulin = ifelse(insulin == 0, 125.00, insulin),
-       mass= ifelse(mass == 0,32.30, mass),
-       pedigree= ifelse(pedigree == 0, 0.37, pedigree),
-       age= ifelse(age == 0, 29.00, age),
+mutate(pregnant = ifelse(is.na(pregnant), 3.0, pregnant), 
+       glucose = ifelse(is.na(glucose), 117.0, glucose),
+       pressure= ifelse(is.na(pressure), 72.00, pressure),
+       triceps= ifelse(is.na(triceps), 29.00, triceps),
+       insulin = ifelse(is.na(insulin), 125.00, insulin),
+       mass= ifelse(is.na(mass == 0),32.30, mass),
+       pedigree= ifelse(is.na(pedigree == 0), 0.37, pedigree),
+       age= ifelse(is.na(age == 0), 29.00, age),
        )
 pima
 ```
@@ -196,9 +196,9 @@ summary(pima$diabetes)
 
 Se eligieron los siguientes
 
--   método 1: Se elige el método Accuracy que nos indica el porcentaje de los casos bien clasificados.
+-   método 1: Clasificador Bayesiano.
 
--   método 2: Se elige el método Precisión que nos indica el porcentaje de casos positivos bien clasificados dentro de los casos positivos predichos.
+-   método 2: KNN (k-Nearest Neighbour Classification)
 
 ## 3.Resultados
 
@@ -236,6 +236,16 @@ head(train)
 head(test)
 ```
 
+```{r}
+any(is.na(pima))
+```
+
+```{r}
+library(class)
+califKnn<-knn(train = train, test = test, cl = pima$diabetes, k=4)
+califKnn
+```
+
 <!-- Se recomienda que la proporción de datos de entrenamiento supere al menos el 50% del total de datos -->
 
 <!-- Agregar tantos chunks R como sean necesarios: boton "+C" verde -->
@@ -245,7 +255,7 @@ head(test)
 Comentar brevemente las salidas obtenidas
 
 ```{r}
-
+# Se tienen que realizar modelos con las 2 metricas elegidas (knn y bayes). Luego se deben comparar.
 ```
 
 *Comentarios*: (rellenar)
@@ -253,7 +263,7 @@ Comentar brevemente las salidas obtenidas
 Utilizar métricas apropiadas para comparar performance de modelos
 
 ```{r}
-
+# Acá se debe calcular el accuracy, precision, recall, etc.
 ```
 
 *Comentarios*: (rellenar)
