@@ -103,6 +103,10 @@ kbl(meta,booktabs=TRUE) %>%
 summary(pima)
 ```
 
+```{r}
+str(pima)
+```
+
 # Se pide
 
 ## 1.Trabajo previo
@@ -111,13 +115,79 @@ summary(pima)
 
 ¿Encuentra alguna medida fuera de lo normal? ¿Hay datos faltantes en este conjunto de datos? En cualquiera de los dos casos, identifique dónde hay problemas y explique brevemente cambios que pudiera realizar a los datos.
 
+```{r}
+# Hay valores nulos en el data set.
+any(is.na(pima))
+```
+
+A continuación se especifican los valores nulos según cada variable:
+
+```{r}
+sum(is.na(pima$pregnant))
+```
+
+```{r}
+sum(is.na(pima$glucose))
+```
+
+```{r}
+sum(is.na(pima$pressure))
+```
+
+```{r}
+sum(is.na(pima$triceps))
+```
+
+```{r}
+sum(is.na(pima$insulin))
+```
+
+```{r}
+sum(is.na(pima$mass))
+```
+
+```{r}
+sum(is.na(pima$pedigree))
+```
+
+```{r}
+sum(is.na(pima$age))
+```
+
+Se observa una cantidad significativa de valores faltantes de la variable triceps e insulin.
+
+A continuación se depuran los datos reemplazando los valores nulos por la mediana correspondiente:
+
+```{r}
+pima<-pima %>%
+mutate(pregnant = ifelse(pregnant == 0, 3.0, pregnant), 
+       glucose = ifelse(glucose == 0, 117.0, glucose),
+       pressure= ifelse(pressure == 0, 72.00, pressure),
+       triceps= ifelse(triceps == 0, 29.00, triceps),
+       insulin = ifelse(insulin == 0, 125.00, insulin),
+       mass= ifelse(mass == 0,32.30, mass),
+       pedigree= ifelse(pedigree == 0, 0.37, pedigree),
+       age= ifelse(age == 0, 29.00, age),
+       )
+pima
+```
+
+```{r}
+diabetes_result <- pima %>%
+group_by (pima$diabetes) %>%
+count(pima$diabetes)
+diabetes_result
+```
+
+De los 768 casos de estudio, se encuentran 500 mujeres sin diabetes y 268 con diabetes.
+
 ### Variables a trabajar
 
 ¿Cuál es la variable de interés? ¿Y las variables que ayudan a predecir sus resultados? Explique brevemente
 
 ```{r}
 #La variable de interés es diabetes. Con el resto de los datos del dataset se puede predecir si un paciente puede ser diagnosticado con diabetes mellitus.
-
+summary(pima$diabetes)
 ```
 
 <!-- Agregar tantos chunks R como sean necesarios: boton "+C" verde -->
@@ -138,6 +208,32 @@ Elija proporción de datos de entrenamiento y de prueba (o testing) para separar
 
 ```{r}
 # Se elige el 75% de los datos para entrenamiento y el 25% para pruebas.
+### Datos
+data(pima)
+##### ARMO UNA MUESTRA TEST Y UNA ENTRENAMIENTO
+# total de filas del data set
+n = nrow(pima)
+n
+# total de filas a sortear para la muestra de entrenamiento
+ntrain = floor(n*0.75)
+ntrain
+
+###### MUESTRA DE ENTRENAMIENTO
+# sorteo posiciones
+sam = sample(1:nrow(pima),ntrain)
+# Nos quedamos con esas posiciones (filas)
+train = pima[sam,]
+###### MUESTRA TEST (al set de datos le quitamos las posiciones sorteadas)
+test = pima[-sam,]
+
+```
+
+```{r}
+head(train)
+```
+
+```{r}
+head(test)
 ```
 
 <!-- Se recomienda que la proporción de datos de entrenamiento supere al menos el 50% del total de datos -->
