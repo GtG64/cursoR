@@ -1,5 +1,5 @@
 ---
-p---
+---
 title: 'Aprendizaje Automático: Trabajo Final'
 author: "Gonzalo Tabares, Washington Rosa y Daniel Paggiola"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -165,9 +165,9 @@ mutate(pregnant = ifelse(is.na(pregnant), 3.0, pregnant),
        pressure= ifelse(is.na(pressure), 72.00, pressure),
        triceps= ifelse(is.na(triceps), 29.00, triceps),
        insulin = ifelse(is.na(insulin), 125.00, insulin),
-       mass= ifelse(is.na(mass == 0),32.30, mass),
-       pedigree= ifelse(is.na(pedigree == 0), 0.37, pedigree),
-       age= ifelse(is.na(age == 0), 29.00, age),
+       mass= ifelse(is.na(mass),32.30, mass),
+       pedigree= ifelse(is.na(pedigree), 0.37, pedigree),
+       age= ifelse(is.na(age), 29.00, age),
        )
 pima
 ```
@@ -196,7 +196,7 @@ summary(pima$diabetes)
 
 Se eligieron los siguientes
 
--   método 1: Clasificador Bayesiano.
+-   método 1: CART (Ver en los prácticos ya que hay hasta el argumento teórico.)
 
 -   método 2: KNN (k-Nearest Neighbour Classification)
 
@@ -255,7 +255,7 @@ califKnn
 Comentar brevemente las salidas obtenidas
 
 ```{r}
-# Se tienen que realizar modelos con las 2 metricas elegidas (knn y bayes). Luego se deben comparar.
+# Se tienen que realizar modelos con las 2 metricas elegidas (knn y CART). Luego se deben comparar.
 ```
 
 *Comentarios*: (rellenar)
@@ -263,7 +263,7 @@ Comentar brevemente las salidas obtenidas
 Utilizar métricas apropiadas para comparar performance de modelos
 
 ```{r}
-# Acá se debe calcular el accuracy, precision, recall, etc.
+# Acá se debe calcular el accuracy, precision, recall, etc. ambos modelos.
 ```
 
 *Comentarios*: (rellenar)
