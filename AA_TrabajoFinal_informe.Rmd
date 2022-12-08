@@ -196,7 +196,7 @@ summary(pima$diabetes)
 
 Se eligieron los siguientes
 
--   método 1: CART (Ver en los prácticos ya que hay hasta el argumento teórico.)
+-   método 1: CART
 
 -   método 2: KNN (k-Nearest Neighbour Classification)
 
@@ -241,9 +241,17 @@ any(is.na(pima))
 ```
 
 ```{r}
-library(class)
-califKnn<-knn(train = train, test = test, cl = pima$diabetes, k=4)
-califKnn
+#guardo los valores que se va a predecir para cada conjunto
+train_df <- pima[sam, 8]
+test_df <- pima[-sam, 8]
+```
+
+```{r}
+train_df
+```
+
+```{r}
+test_df
 ```
 
 <!-- Se recomienda que la proporción de datos de entrenamiento supere al menos el 50% del total de datos -->
@@ -255,6 +263,16 @@ califKnn
 Comentar brevemente las salidas obtenidas
 
 ```{r}
+library(class)
+model<-knn(train, test, cl = train_df, k = 3, prob = TRUE)
+model
+```
+
+```{r}
+errortest=mean(model!=test_df)
+```
+
+```{r}
 # Se tienen que realizar modelos con las 2 metricas elegidas (knn y CART). Luego se deben comparar.
 ```
 
@@ -263,10 +281,38 @@ Comentar brevemente las salidas obtenidas
 Utilizar métricas apropiadas para comparar performance de modelos
 
 ```{r}
+confusionKNN <- table(model, test_df)
+confusionKNN
+```
+
+```{r}
 # Acá se debe calcular el accuracy, precision, recall, etc. ambos modelos.
 ```
 
 *Comentarios*: (rellenar)
+
+Realizo el CART
+
+```{r}
+library(rpart)
+Tdef = rpart(diabetes ~., data = train)
+```
+
+```{r}
+fancyRpartPlot(Tdef,main = '',sub = '')
+```
+
+```{r}
+## SVM
+library(e1071)
+modelSVM <- svm(diabetes~., data = train)
+modelSVM
+```
+
+```{r}
+##confusionSVN <- table(modelSVM, test_df)
+##confusionSVN
+```
 
 ## 4.Conclusiones
 
