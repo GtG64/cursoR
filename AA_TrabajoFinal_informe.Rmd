@@ -73,10 +73,10 @@ Consta de 9 variables:
 ```{r variables, echo=FALSE}
 # Armamos data.frame con informacion
 nmb_var <- colnames(pima)
-#pima$diabetes <- ifelse(pima$diabetes=="pos",1,0)
+pima$diabetes <- ifelse(pima$diabetes=="pos",1,0)
 tipo_var <- lapply(pima,class) %>% unlist %>% unname
-#rng1 <- lapply(pima,min,na.rm=TRUE) %>% unlist %>% unname
-#rng2 <- lapply(pima,max,na.rm=TRUE) %>% unlist %>% unname
+rng1 <- lapply(pima,min,na.rm=TRUE) %>% unlist %>% unname
+rng2 <- lapply(pima,max,na.rm=TRUE) %>% unlist %>% unname
 descr <- c("Cantidad de veces que estuvo embarazada",
            "Resultado de tolerancia a la glucosa (glucosa plasmática en ayunas)",
            "Presión diastólica (mm Hg)",
@@ -96,6 +96,12 @@ kbl(meta,booktabs=TRUE) %>%
 ```
 
 *Nota*: (\*) la variable original de los datos en el paquete `{mlbench}` es un *factor*. Pueden trabajar con cualquiera de las dos versiones --la original o la transformada. La última quedará guardada si corren la segunda línea del chunk llamado `variables`. Simplemente hay que tener cuidado con los modelos que se vayan a usar y verificar que el tipo de variable sea el correcto para cada modelo.
+
+Vuelvo a construír la variable diabetes para que quede categórica:
+
+```{r}
+pima$diabetes <- ifelse(pima$diabetes=="1","pos","neg")
+```
 
 ```{r, echo=FALSE}
 #summary(PimaIndiansDiabetes2)
@@ -195,9 +201,9 @@ summary(pima$diabetes)
 
 Se eligieron los siguientes
 
--   método 1: CART
+-   método 1: KNN (k-Nearest Neighbour Classification)
 
--   método 2: KNN (k-Nearest Neighbour Classification)
+-   método 2: SVM (Support-Vector Machines)
 
 ## 3.Resultados
 
@@ -259,7 +265,7 @@ any(is.na(test))
 
 ```{r}
 library(class)
-model<-knn(train, test, cl = train_df, k = 30, prob = TRUE)
+model<-knn(train[,-9], test[,-9], cl = train_df, k = 30, prob = TRUE)
 model
 ```
 
@@ -272,7 +278,7 @@ errortest
 # Se tienen que realizar modelos con las 2 metricas elegidas (knn y CART). Luego se deben comparar.
 ```
 
-*Comentarios*: (rellenar)
+*Comentarios*: El error de lo pedicho con respecto a Test es de 0,29 lo cual consideramos bastante aceptable.
 
 Utilizar métricas apropiadas para comparar performance de modelos
 
@@ -282,7 +288,10 @@ confusionKNN
 ```
 
 ```{r}
-# Acá se debe calcular el accuracy, precision, recall, etc. ambos modelos.
+        #acc = accuracy_score(y_true, y_pred)
+        #prec = precision_score(y_true, y_pred)
+        #rec = recall_score(y_true, y_pred)
+        #f1 = f1_score(y_true, y_pred)
 ```
 
 *Comentarios*: (rellenar)
