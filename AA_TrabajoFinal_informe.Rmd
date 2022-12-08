@@ -1,5 +1,4 @@
 ---
----
 title: 'Aprendizaje Automático: Trabajo Final'
 author: "Gonzalo Tabares, Washington Rosa y Daniel Paggiola"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -74,10 +73,10 @@ Consta de 9 variables:
 ```{r variables, echo=FALSE}
 # Armamos data.frame con informacion
 nmb_var <- colnames(pima)
-pima$diabetes <- ifelse(pima$diabetes=="pos",1,0)
+#pima$diabetes <- ifelse(pima$diabetes=="pos",1,0)
 tipo_var <- lapply(pima,class) %>% unlist %>% unname
-rng1 <- lapply(pima,min,na.rm=TRUE) %>% unlist %>% unname
-rng2 <- lapply(pima,max,na.rm=TRUE) %>% unlist %>% unname
+#rng1 <- lapply(pima,min,na.rm=TRUE) %>% unlist %>% unname
+#rng2 <- lapply(pima,max,na.rm=TRUE) %>% unlist %>% unname
 descr <- c("Cantidad de veces que estuvo embarazada",
            "Resultado de tolerancia a la glucosa (glucosa plasmática en ayunas)",
            "Presión diastólica (mm Hg)",
@@ -242,16 +241,8 @@ any(is.na(pima))
 
 ```{r}
 #guardo los valores que se va a predecir para cada conjunto
-train_df <- pima[sam, 8]
-test_df <- pima[-sam, 8]
-```
-
-```{r}
-train_df
-```
-
-```{r}
-test_df
+train_df <- pima[sam, 'diabetes']
+test_df <- pima[-sam, 'diabetes']
 ```
 
 <!-- Se recomienda que la proporción de datos de entrenamiento supere al menos el 50% del total de datos -->
@@ -263,13 +254,18 @@ test_df
 Comentar brevemente las salidas obtenidas
 
 ```{r}
+any(is.na(test))
+```
+
+```{r}
 library(class)
-model<-knn(train, test, cl = train_df, k = 3, prob = TRUE)
+model<-knn(train, test, cl = train_df, k = 30, prob = TRUE)
 model
 ```
 
 ```{r}
 errortest=mean(model!=test_df)
+errortest
 ```
 
 ```{r}
@@ -310,8 +306,8 @@ modelSVM
 ```
 
 ```{r}
-##confusionSVN <- table(modelSVM, test_df)
-##confusionSVN
+confusionSVN <- table(modelSVM, test_df)
+confusionSVN
 ```
 
 ## 4.Conclusiones
