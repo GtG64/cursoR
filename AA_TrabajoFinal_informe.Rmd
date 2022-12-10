@@ -204,7 +204,7 @@ Se eligieron los siguientes
 
 -   método 1: KNN (k-Nearest Neighbour Classification)
 
--   método 2: SVM (Support-Vector Machines)
+-   método 2: CART
 
 ## 3.Resultados
 
@@ -281,28 +281,59 @@ confusionKNN
 ```
 
 ```{r}
-        #acc = accuracy_score(y_true, y_pred)
-        #prec = precision_score(y_true, y_pred)
-        #rec = recall_score(y_true, y_pred)
-        #f1 = f1_score(y_true, y_pred)
+accuracy <- (34+101)/192
+error_rate <- (20+37)/192
+sensitivity <- 34/54
+especificity <- 101/138
+precision <- 34/71
+
+accuracy
+error_rate
+sensitivity
+especificity
+precision
 ```
 
-*Comentarios*: (rellenar)
+*Comentarios*: El porcentaje de los casos bien clasificados es del 70% lo cual está medianamente bien. El error es del 30% lo cual no está mal. Clasifica medianamente bien a los positivos aunque clasifica bastante mejor a los negativos.
 
-Se realiza el modelo con SVM:
+La precisión es casi del 50 %
+
+Se realizar el Árbol de Decisión (CART):
 
 ```{r}
-## SVM
-library(e1071)
-#modelSVM <- svm(diabetes~., data = train)
-#modelSVM
+library(rpart)
+tree.model = rpart(diabetes ~., data = train)
+```
+
+```{r}
+library(rpart)
+fancyRpartPlot(tree.model,main = '',sub = '')
+```
+
+```{r}
+tree.predict.in<- predict(tree.model, train[,-9], type = "class")
+head(tree.predict.in)
 ```
 
 Se realiza la matríz de confusión
 
 ```{r}
-#confusionSVN <- table(modelSVM, test_df)
-#confusionSVN
+confusionTree <- table(tree.predict.in, train$diabetes)
+confusionTree
+```
+
+```{r}
+accuracyTree <- (145+337)/576
+error_rateTree <- (52+42)/576
+sensitivityTree <- 145/187
+especificityTree <- 337/389
+precisionTree <- 145/197
+
+accuracyTree
+error_rateTree
+sensitivityTree
+especificityTree
+precisionTree
 ```
 
 ## 4.Conclusiones
