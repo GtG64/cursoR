@@ -174,7 +174,7 @@ mutate(pregnant = ifelse(is.na(pregnant), 3.0, pregnant),
        pedigree= ifelse(is.na(pedigree), 0.37, pedigree),
        age= ifelse(is.na(age), 29.00, age),
        )
-pima
+head(pima)
 ```
 
 ```{r}
@@ -191,7 +191,8 @@ De los 768 casos de estudio, se encuentran 500 mujeres sin diabetes y 268 con di
 ¿Cuál es la variable de interés? ¿Y las variables que ayudan a predecir sus resultados? Explique brevemente
 
 ```{r}
-#La variable de interés es diabetes. Con el resto de los datos del dataset se puede predecir si un paciente puede ser diagnosticado con diabetes mellitus.
+#La variable de interés es diabetes. 
+#Con el resto de los datos del dataset se puede predecir si un paciente puede ser diagnosticado con diabetes mellitus.
 summary(pima$diabetes)
 ```
 
@@ -260,10 +261,6 @@ test_df <- pima[-sam, 'diabetes']
 Comentar brevemente las salidas obtenidas
 
 ```{r}
-any(is.na(test))
-```
-
-```{r}
 library(class)
 model<-knn(train[,-9], test[,-9], cl = train_df, k = 30, prob = TRUE)
 head(model)
@@ -272,10 +269,6 @@ head(model)
 ```{r}
 errortest=mean(model!=test_df)
 errortest
-```
-
-```{r}
-# Se tienen que realizar modelos con las 2 metricas elegidas (knn y CART). Luego se deben comparar.
 ```
 
 *Comentarios*: El error de lo pedicho con respecto a Test es de 0,29 lo cual consideramos bastante aceptable.
