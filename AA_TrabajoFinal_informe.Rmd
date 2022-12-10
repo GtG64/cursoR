@@ -336,13 +336,17 @@ especificityTree
 precisionTree
 ```
 
+*Comentarios*: El porcentaje de los casos bien clasificados es del 84% lo cual está correcto. El error es del 16% lo cual bien. Clasifica bien a los positivos y bastante mejor a los negativos.
+
+La precisión es casi del 74 %
+
 ## 4.Conclusiones
 
--   Conclusion 1:
+-   Conclusion 1: Se concluye que el CART es significativamente mejor que el KNN.
 
--   Conclusion 2:
+-   Conclusion 2: Mediante las métricas anteriores se nota una gran diferencia cuando se utiliza el CART a cuando se utiliza KNN, siendo el CART mejor en todas las métricas.
 
--   Conclusion 3:
+-   Conclusion 3: Se podría haber utilizado distintos hiperparámetros para intentar buscar mejorar las métricas aunque en el caso del CART consideramos que tienen muy buenos valores y predice basteante bien.
 
 ## Comentarios finales
 
