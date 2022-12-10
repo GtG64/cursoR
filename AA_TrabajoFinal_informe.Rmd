@@ -266,7 +266,7 @@ any(is.na(test))
 ```{r}
 library(class)
 model<-knn(train[,-9], test[,-9], cl = train_df, k = 30, prob = TRUE)
-model
+head(model)
 ```
 
 ```{r}
@@ -296,27 +296,20 @@ confusionKNN
 
 *Comentarios*: (rellenar)
 
-Realizo el CART
-
-```{r}
-library(rpart)
-Tdef = rpart(diabetes ~., data = train)
-```
-
-```{r}
-fancyRpartPlot(Tdef,main = '',sub = '')
-```
+Se realiza el modelo con SVM:
 
 ```{r}
 ## SVM
 library(e1071)
-modelSVM <- svm(diabetes~., data = train)
-modelSVM
+#modelSVM <- svm(diabetes~., data = train)
+#modelSVM
 ```
 
+Se realiza la matríz de confusión
+
 ```{r}
-confusionSVN <- table(modelSVM, test_df)
-confusionSVN
+#confusionSVN <- table(modelSVM, test_df)
+#confusionSVN
 ```
 
 ## 4.Conclusiones
