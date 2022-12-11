@@ -378,7 +378,7 @@ code span.ot { color: #007020; }
 <span class="author_name">Aprendizaje Automático: Trabajo Final</span>
 <span class="author_bio mbm">Gonzalo Tabares, Washington Rosa y Daniel
 Paggiola</span>
-<span class="author_bio mbm">10 Diciembre, 2022</span>
+<span class="author_bio mbm">11 Diciembre, 2022</span>
 </div>
 </div>
 </div>
@@ -642,6 +642,12 @@ categórica:</p>
 este conjunto de datos? En cualquiera de los dos casos, identifique
 dónde hay problemas y explique brevemente cambios que pudiera realizar a
 los datos.</p>
+<p>Entendemos que la glucosa podría ser mayor a199 al igual que la
+presión mayor a 122. También que 17 veces estar embarazada es una medida
+fuera de lo normal.</p>
+<p>Según el análisis, también hay gente con presión sangúinea de 24 lo
+cual es demasiando baja y fuera de lo normal al igual que la
+insulina.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay valores nulos en el data set.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(pima))</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
@@ -664,7 +670,7 @@ variable:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(pima<span class="sc">$</span>age))</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Se observa una cantidad significativa de valores faltantes de la
-variable triceps e insulin.</p>
+variables triceps e insulina.</p>
 <p>A continuación se depuran los datos reemplazando los valores nulos
 por la mediana correspondiente:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pima<span class="ot">&lt;-</span>pima <span class="sc">%&gt;%</span></span>
@@ -775,11 +781,11 @@ para separar los datos.</p>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(model)</span></code></pre></div>
 <pre><code>## [1] neg pos neg neg pos neg
 ## Levels: neg pos</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>errortest<span class="ot">=</span><span class="fu">mean</span>(model<span class="sc">!=</span>test_df)</span>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>errortest <span class="ot">=</span> <span class="fu">mean</span>(model<span class="sc">!=</span>test_df)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>errortest</span></code></pre></div>
 <pre><code>## [1] 0.296875</code></pre>
 <p><em>Comentarios</em>: El error de lo pedicho con respecto a Test es
-de 0,29 lo cual consideramos bastante aceptable.</p>
+de 0,29 lo cual consideramos medianamente aceptable.</p>
 <p>Utilizar métricas apropiadas para comparar performance de modelos</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>confusionKNN <span class="ot">&lt;-</span> <span class="fu">table</span>(model, test_df)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>confusionKNN</span></code></pre></div>
@@ -804,10 +810,11 @@ de 0,29 lo cual consideramos bastante aceptable.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>precision</span></code></pre></div>
 <pre><code>## [1] 0.4788732</code></pre>
 <p><em>Comentarios</em>: El porcentaje de los casos bien clasificados es
-del 70% lo cual está medianamente bien. El error es del 30% lo cual no
-está mal. Clasifica medianamente bien a los positivos aunque clasifica
-bastante mejor a los negativos.</p>
-<p>La precisión es casi del 50 %</p>
+del 70% lo cual está medianamente bien. El error es del 30% lo cual está
+medianamente aceptable. Clasifica medianamente bien a los positivos
+aunque clasifica bastante mejor a los negativos.</p>
+<p>La precisión es casi del 50 %, es bastante baja.</p>
+<p>En términos generales consideramos que no es un modelo aceptable.</p>
 <p>Se realizar el Árbol de Decisión (CART):</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>tree.model <span class="ot">=</span> <span class="fu">rpart</span>(diabetes <span class="sc">~</span>., <span class="at">data =</span> train)</span></code></pre></div>
@@ -819,7 +826,7 @@ bastante mejor a los negativos.</p>
 <pre><code>## 228 435 718 708 703 766 
 ## pos neg neg neg pos neg 
 ## Levels: neg pos</code></pre>
-<p>Se realiza la matríz de confusión</p>
+<p>Se realiza la matríz de confusión:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>confusionTree <span class="ot">&lt;-</span> <span class="fu">table</span>(tree.predict.in, train<span class="sc">$</span>diabetes)</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>confusionTree</span></code></pre></div>
 <pre><code>##                
@@ -843,9 +850,9 @@ bastante mejor a los negativos.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>precisionTree</span></code></pre></div>
 <pre><code>## [1] 0.7360406</code></pre>
 <p><em>Comentarios</em>: El porcentaje de los casos bien clasificados es
-del 84% lo cual está correcto. El error es del 16% lo cual bien.
+del 84% lo cual está correcto. El error es del 16% lo cual está bien.
 Clasifica bien a los positivos y bastante mejor a los negativos.</p>
-<p>La precisión es casi del 74 %</p>
+<p>La precisión es casi del 74 % lo cual consideramos que está bien.</p>
 </div>
 </div>
 <div id="conclusiones" class="section level2">
@@ -866,6 +873,10 @@ bien.</p></li>
 <h2>Comentarios finales</h2>
 <p>(todo lo que consideren necesario explicar: descubrimientos más
 importantes, limitaciones, sugerencias, etc.)</p>
+<p>Entendemos que se deberían tomar mayor cantidad de datos y regular
+los parámetros para lograr mejores estimadores. También quizás se
+podrían aportar otros datos que influyan más para detectar la
+diabetes.</p>
 </div>
 </div>
 </article>

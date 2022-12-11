@@ -120,6 +120,10 @@ str(pima)
 
 ¿Encuentra alguna medida fuera de lo normal? ¿Hay datos faltantes en este conjunto de datos? En cualquiera de los dos casos, identifique dónde hay problemas y explique brevemente cambios que pudiera realizar a los datos.
 
+Entendemos que la glucosa podría ser mayor a199 al igual que la presión mayor a 122. También que 17 veces estar embarazada es una medida fuera de lo normal.
+
+Según el análisis, también hay gente con presión sangúinea de 24 lo cual es demasiando baja y fuera de lo normal al igual que la insulina.
+
 ```{r}
 # Hay valores nulos en el data set.
 any(is.na(pima))
@@ -159,7 +163,7 @@ sum(is.na(pima$pedigree))
 sum(is.na(pima$age))
 ```
 
-Se observa una cantidad significativa de valores faltantes de la variable triceps e insulin.
+Se observa una cantidad significativa de valores faltantes de la variables triceps e insulina.
 
 A continuación se depuran los datos reemplazando los valores nulos por la mediana correspondiente:
 
@@ -267,11 +271,11 @@ head(model)
 ```
 
 ```{r}
-errortest=mean(model!=test_df)
+errortest = mean(model!=test_df)
 errortest
 ```
 
-*Comentarios*: El error de lo pedicho con respecto a Test es de 0,29 lo cual consideramos bastante aceptable.
+*Comentarios*: El error de lo pedicho con respecto a Test es de 0,29 lo cual consideramos medianamente aceptable.
 
 Utilizar métricas apropiadas para comparar performance de modelos
 
@@ -294,9 +298,11 @@ especificity
 precision
 ```
 
-*Comentarios*: El porcentaje de los casos bien clasificados es del 70% lo cual está medianamente bien. El error es del 30% lo cual no está mal. Clasifica medianamente bien a los positivos aunque clasifica bastante mejor a los negativos.
+*Comentarios*: El porcentaje de los casos bien clasificados es del 70% lo cual está medianamente bien. El error es del 30% lo cual está medianamente aceptable. Clasifica medianamente bien a los positivos aunque clasifica bastante mejor a los negativos.
 
-La precisión es casi del 50 %
+La precisión es casi del 50 %, es bastante baja.
+
+En términos generales consideramos que no es un modelo aceptable.
 
 Se realizar el Árbol de Decisión (CART):
 
@@ -315,7 +321,7 @@ tree.predict.in<- predict(tree.model, train[,-9], type = "class")
 head(tree.predict.in)
 ```
 
-Se realiza la matríz de confusión
+Se realiza la matríz de confusión:
 
 ```{r}
 confusionTree <- table(tree.predict.in, train$diabetes)
@@ -336,9 +342,9 @@ especificityTree
 precisionTree
 ```
 
-*Comentarios*: El porcentaje de los casos bien clasificados es del 84% lo cual está correcto. El error es del 16% lo cual bien. Clasifica bien a los positivos y bastante mejor a los negativos.
+*Comentarios*: El porcentaje de los casos bien clasificados es del 84% lo cual está correcto. El error es del 16% lo cual está bien. Clasifica bien a los positivos y bastante mejor a los negativos.
 
-La precisión es casi del 74 %
+La precisión es casi del 74 % lo cual consideramos que está bien.
 
 ## 4.Conclusiones
 
@@ -351,3 +357,5 @@ La precisión es casi del 74 %
 ## Comentarios finales
 
 (todo lo que consideren necesario explicar: descubrimientos más importantes, limitaciones, sugerencias, etc.)
+
+Entendemos que se deberían tomar mayor cantidad de datos y regular los parámetros para lograr mejores estimadores. También quizás se podrían aportar otros datos que influyan más para detectar la diabetes.
